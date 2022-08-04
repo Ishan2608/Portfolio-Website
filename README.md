@@ -4,5 +4,5 @@ This is the first portfolio website, that I have created. This build this websit
 <a href="https://ishan2608.github.io/Portfolio-Website/" target="_blank">Open</a>
 
 <div>
-  <img src="./Portfolio Website Flowchart.png">
+  <img src="./images/Portfolio Website Flowchart.png">
 </div>
