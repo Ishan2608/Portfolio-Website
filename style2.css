@@ -124,3 +124,51 @@ section{
 }
 
 
+/* Projects Section */
+
+.projects h1{
+    text-align: center;
+}
+
+.projects .container{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+.projects .left,
+.blogs .right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projects .left > img,
+.blogs .right > img{
+    height: 80%;
+    width: auto;
+}
+
+.projects .container .right{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+}
+
+article > h3{
+    margin-bottom: 5px;
+}
+
+article.project > h3 > a,
+article.blog > h3 > a{
+    text-decoration: none;
+    color: var(--primary);
+}
+
+article.project > h3 > a:hover,
+article.blog > h3 > a:hover{
+    cursor: pointer;
+    color: var(--hover);
+}
