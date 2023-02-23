@@ -16,8 +16,13 @@
 }
 
 section{
+    padding-top: 30px;
     padding-bottom: 30px;
     border: 2px solid blue;
+}
+
+section.about{
+    padding-top: 0%;
 }
 
 .heading{
@@ -93,27 +98,33 @@ section{
 
 /* Skills Section */
 
-.skills{
+.skills, .works{
     text-align: center;
 }
 
 .skills .container{
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    justify-content: space-evenly;
-    gap: 20px;
     background: url('./public/graphics/skills-bg-graphic.png');
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
 }
 
-.skills .container .skill{
+
+.skills .container, 
+.works .container{
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.skills .container .skill,
+.works .container .work{
     border: 1px solid rgba(12, 98, 211, 0.781);
     border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.842);
+    background-color: rgba(255, 255, 255, 0.753);
     padding: 30px 20px;
 
     display: flex;
@@ -123,16 +134,26 @@ section{
     gap: 20px;
 }
 
+.works .container .work img{
+    width: 100%;
+    height: auto;
+}
 
 /* Projects Section */
 
-.projects h1{
+.projects h1, 
+.blogs h1{
     text-align: center;
 }
 
 .projects .container{
     display: grid;
     grid-template-columns: 2fr 3fr;
+}
+
+.blogs .container{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
 }
 
 .projects .left,
@@ -149,7 +170,8 @@ section{
     width: auto;
 }
 
-.projects .container .right{
+.projects .container .right,
+.blogs .container .left{
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
@@ -171,4 +193,10 @@ article.project > h3 > a:hover,
 article.blog > h3 > a:hover{
     cursor: pointer;
     color: var(--hover);
+}
+
+/* Works Section */
+
+.works{
+    text-align: center;
 }
