@@ -96,9 +96,9 @@ section.about{
     height: auto;
 }
 
-/* Skills Section */
+/* Card Layout - Skills and Work */
 
-.skills, .works{
+.skills, .works, footer{
     text-align: center;
 }
 
@@ -139,7 +139,14 @@ section.about{
     height: auto;
 }
 
-/* Projects Section */
+/* List Layout - Featured Projects and Articles */
+
+.projects{
+    background-image: url('./public/graphics/projects-bg-graphic.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
 
 .projects h1, 
 .blogs h1{
@@ -195,8 +202,78 @@ article.blog > h3 > a:hover{
     color: var(--hover);
 }
 
-/* Works Section */
+/* Footer Section */
 
-.works{
-    text-align: center;
+footer{
+    position: relative;
+    max-height: 100vh;
+    border: 2px solid black;
+}
+
+footer .container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+
+footer .container .left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+footer .container .left img{
+    width: 50%;
+    border-width: 10px;
+    border-style: solid;
+    border-image: linear-gradient(to right, var(--primary), var(--secondary)) 1;
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.527);
+}
+
+footer .container .right{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    text-align: left;
+    padding: 20px 30px;
+    height: 100%;
+}
+
+footer .container .right img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+footer .container .right .contacts h3{
+    font-weight: lighter;
+    margin-bottom: 5px;
+}
+
+footer .container .right .socials a{
+    color: var(--secondary);
+    text-decoration: none;
+    font-size: 1.8rem;
+    margin-right: 10px;
+}
+
+footer .container .right .socials a:hover{
+    color: white;
+}
+
+footer .bottom-stripe{
+    position: absolute;
+    bottom: 0%;
+    height: 250px;
+    width: 100%;
+    z-index: -100;
+}
+
+
+footer {
+    margin: 0%;
 }
