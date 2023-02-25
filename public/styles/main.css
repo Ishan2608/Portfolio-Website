@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+
+:root{
+    --primary: rgb(12, 98, 211);
+    --secondary: rgb(30, 219, 252);
+    --hover: rgb(4, 74, 165);
+}
+
+/* Universal Styling */
+
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+section{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    /* border: 2px solid blue; */
+    max-width: 1500px;
+    margin: auto;
+}
+
+section.about{
+    padding-top: 0%;
+}
+
+.heading{
+    font-size: 3.5rem;
+    font-family: 'Ubuntu', sans-serif;
+    margin-bottom: 15px;
+}
+
+.stripe{
+    height: 200px;
+    background-image: linear-gradient(to right, var(--secondary), var(--primary));
+}
+
+.btn{
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: white;
+    border: none;
+    background-color: var(--primary);
+    border-radius: 3px;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: var(--hover);
+}
