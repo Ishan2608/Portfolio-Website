@@ -137,9 +137,14 @@ section.about{
     gap: 20px;
 }
 
-.works .container .work img{
+.works .container .work-image img{
     width: 100%;
     height: auto;
+    border: 1px solid var(--secondary);
+}
+
+.work .work-image img{
+    width: 100%;
 }
 
 /* List Layout - Featured Projects and Articles */
@@ -262,6 +267,7 @@ footer .container .right img{
 
 footer .container .right .contacts h3{
     font-weight: lighter;
+    color: rgb(73, 72, 72);
     margin-bottom: 5px;
 }
 
