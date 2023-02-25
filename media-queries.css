@@ -1,0 +1,207 @@
+@media screen and (max-width: 940px) {
+
+    /* About Section */
+
+    .about .text{
+        width: 80%;
+    }
+
+    .about .text h1{
+        font-size: 2rem;
+    }
+
+    .about .text p{
+        font-size: 14px;
+    }
+
+    /* Card Layout */
+
+    .skills .container, 
+    .works .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+
+
+    /* List Layout */
+
+    .projects .container .right article h3,
+    .blogs .container .left article h3{
+        font-size: 20px;
+    }
+
+    .projects .container .right article p
+    .blogs .container .left article p{
+        font-size: 13px;
+    }
+
+    .projects .container,
+    .blogs .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .projects .container .left,
+    .blogs .container .right{
+        display: none;
+    }
+
+    .projects .container .right,
+    .blogs .container .left{
+        width: 100%;
+        padding: 20px;
+    }
+
+    article.project,
+    article.blog{
+        margin-bottom: 30px;
+    }
+
+    /* Footer */
+
+    footer .container .left img{
+        width: 70%;
+    }
+
+    
+}
+
+@media screen and (max-width: 800px){
+    footer .container .left img{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 667px){
+
+    /* Handling General Style */
+
+    .heading{
+        font-size: 2.5rem;
+    }
+
+    .btn{
+        font-size: 1rem;
+    }
+
+    .top-stripe{
+        height: 150px;
+    }
+
+    .about .text h1{
+        font-size: 2rem;
+    }
+
+    .about .text p{
+        font-size: 13px;
+    }
+
+
+    .top-stripe > img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -50%;
+        left: 50%;
+        transform: translate(-50%, -30%);
+    }
+
+    /* Handling About Me Section */
+
+    .about .text h1{
+        font-size: 1.8rem;
+    }
+
+    .about .text p{
+        font-size: 1rem;
+    }
+
+    /* Handling Cards Layout*/
+
+    article.skill h3, 
+    article.work h3{
+        font-size: 1rem;
+    }
+    article.skill p, 
+    article.work p{
+        font-size: 0.8rem;
+    }
+
+    footer .container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    footer .container .left{
+        display: block;
+        text-align: left;
+        padding: 0;
+        padding-left: 10px;
+    }
+
+    footer .container .left img{
+        width: 200px;
+    }
+
+    footer .container .right .wrapper{
+        margin: 20px 0px;
+    }
+
+    footer .container .right .socials a{
+        color: white;
+    }
+
+    footer .bottom-stripe{
+        height: 75%;
+    }
+}
+
+
+@media screen and (max-width: 500px){
+
+    .heading{
+        font-size: 1.8rem;
+    }
+
+    .btn{
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+
+    .skills .container, 
+    .works .container{
+        grid-template-columns: 1fr;
+        padding: 0 50px ;
+    }
+
+
+    .skills .container .skill,
+    .works .container .work{
+        justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .heading{
+        font-size: 1.4rem;
+    }
+
+    .btn{
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .skills .container, 
+    .works .container{
+        grid-template-columns: 1fr;
+        padding: 0 20px ;
+    }
+
+    footer .container .left img{
+        width: 150px;
+    }
+}
