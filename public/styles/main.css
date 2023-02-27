@@ -6,6 +6,36 @@
     --hover: rgb(4, 74, 165);
 }
 
+/* Define custom selection area color*/
+::-moz-selection {
+    color: var(--hover);
+}
+::selection {
+    color: var(--hover);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 10px;
+    background: var(--secondary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(6, 200, 235);
+}
+
 /* Universal Styling */
 
 *{
