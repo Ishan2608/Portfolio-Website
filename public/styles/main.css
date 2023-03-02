@@ -53,6 +53,11 @@ section{
     margin: auto;
 }
 
+footer{
+    max-width: 1500px;
+    margin: auto;
+}
+
 section.about{
     padding-top: 0%;
 }
