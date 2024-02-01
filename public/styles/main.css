@@ -66,6 +66,7 @@ section.about{
     font-size: 3.5rem;
     font-family: 'Ubuntu', sans-serif;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .stripe{
