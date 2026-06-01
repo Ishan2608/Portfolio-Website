@@ -1,377 +1,1020 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./public/styles/main.css">
-    <link rel="stylesheet" href="./public/styles/home.css">
-    <link rel="stylesheet" href="./public/styles/media-queries.css">
-    <link rel="icon" type="image/x-icon" href="./public/images/favicon.ico">
-    <title>Ishan Rastogi</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ishan Rastogi — Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg-deep: #07050F;
+  --bg-mid:  #0D0A1E;
+  --grad-a:  #FF6B35;
+  --grad-b:  #FF3CAC;
+  --grad-c:  #784BA0;
+  --grad-d:  #2B86C5;
+  --ember-1: #FF8C42;
+  --ember-2: #FFD166;
+  --ember-3: #FF4D6D;
+  --glass-bg:     rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.09);
+  --glass-shine:  rgba(255,255,255,0.13);
+  --text:    #F0EEF8;
+  --text-m:  #9B96B8;
+  --text-f:  #5A5472;
+  --syne:    'Syne', sans-serif;
+  --inst:    'Instrument Sans', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--inst);
+  background:var(--bg-deep);
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── EMBER CANVAS ── */
+#ember-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:1;
+}
+
+/* ── BACKGROUND MESH ── */
+.bg-mesh{
+  position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255,107,53,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(120,75,160,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(43,134,197,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 10% 80%, rgba(255,60,172,0.12) 0%, transparent 55%);
+  animation: meshDrift 18s ease-in-out infinite alternate;
+}
+@keyframes meshDrift{
+  0%  {opacity:1; filter:hue-rotate(0deg);}
+  100%{opacity:0.85; filter:hue-rotate(20deg);}
+}
+
+/* ── NOISE GRAIN ── */
+body::after{
+  content:'';position:fixed;inset:0;z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+  pointer-events:none;opacity:0.55;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor{
+  position:fixed;top:0;left:0;width:12px;height:12px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 16px rgba(255,107,53,0.8),0 0 32px rgba(255,60,172,0.4);
+  transition:width .15s,height .15s;
+}
+.cursor.h{width:20px;height:20px;}
+.cursor-ring{
+  position:fixed;top:0;left:0;width:40px;height:40px;
+  border-radius:50%;
+  border:1px solid rgba(255,107,53,0.4);
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,border-color .2s;
+}
+.cursor-ring.h{width:58px;height:58px;border-color:rgba(255,60,172,0.5);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3.5rem;
+  background:rgba(7,5,15,0.6);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--glass-border);
+}
+.nav-logo{
+  font-family:var(--syne);font-size:1.1rem;font-weight:800;
+  letter-spacing:0.06em;text-decoration:none;color:var(--text);
+}
+.nav-logo span{
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;
+  text-transform:uppercase;text-decoration:none;color:var(--text-m);
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-pill{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;
+  text-transform:uppercase;text-decoration:none;
+  padding:0.55rem 1.4rem;border-radius:100px;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  color:#fff;font-weight:400;
+  box-shadow:0 0 24px rgba(255,107,53,0.35);
+  transition:box-shadow .25s,transform .2s;
+}
+.nav-pill:hover{box-shadow:0 0 36px rgba(255,107,53,0.55);transform:translateY(-1px);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 440px;
+  padding:0 3.5rem;padding-top:5.5rem;
+  position:relative;z-index:3;
+  align-items:center;gap:3rem;
+}
+.hero-left{padding:2rem 2rem 2rem 0;}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--text-m);
+  margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;
+  opacity:0;animation:fadeUp .7s .2s forwards;
+}
+.eyebrow-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  box-shadow:0 0 10px var(--grad-a);
+  animation:dotPulse 2.5s infinite;
+}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px var(--grad-a);}50%{box-shadow:0 0 20px var(--grad-a),0 0 40px var(--grad-b);}}
+
+.hero-name{
+  font-family:var(--syne);font-size:clamp(3rem,6vw,6rem);
+  font-weight:800;line-height:0.95;letter-spacing:-0.02em;
+  opacity:0;animation:fadeUp .85s .35s forwards;
+}
+.hero-name .fill{
+  background:linear-gradient(135deg,var(--grad-a) 0%,var(--grad-b) 50%,var(--grad-c) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  background-size:200% 200%;
+  animation:gradShift 6s ease infinite;
+}
+@keyframes gradShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.hero-name .outline{
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.2);
+  -webkit-text-fill-color:transparent;
+  display:block;
+}
+
+.hero-role{
+  font-family:var(--syne);font-size:clamp(1rem,2vw,1.5rem);
+  font-weight:600;letter-spacing:0.04em;
+  color:var(--text-m);margin-top:0.6rem;
+  opacity:0;animation:fadeUp .85s .5s forwards;
+}
+
+.hero-desc{
+  font-size:1.05rem;color:var(--text-m);line-height:1.85;
+  font-weight:300;max-width:48ch;margin-top:2rem;
+  opacity:0;animation:fadeUp .85s .65s forwards;
+}
+
+.hero-actions{
+  display:flex;gap:1rem;margin-top:2.5rem;
+  opacity:0;animation:fadeUp .85s .8s forwards;
+}
+.btn-glow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  text-decoration:none;font-family:var(--syne);
+  font-size:0.82rem;font-weight:600;letter-spacing:0.06em;
+  padding:0.9rem 2.2rem;border-radius:100px;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  color:#fff;
+  box-shadow:0 0 32px rgba(255,107,53,0.4),0 4px 20px rgba(0,0,0,0.4);
+  transition:box-shadow .25s,transform .2s;
+}
+.btn-glow:hover{box-shadow:0 0 48px rgba(255,107,53,0.6),0 4px 28px rgba(0,0,0,0.4);transform:translateY(-2px);}
+.btn-glass{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  text-decoration:none;font-family:var(--syne);
+  font-size:0.82rem;font-weight:600;letter-spacing:0.06em;
+  padding:0.9rem 2.2rem;border-radius:100px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  color:var(--text);
+  backdrop-filter:blur(12px);
+  transition:background .25s,border-color .25s,transform .2s;
+}
+.btn-glass:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,107,53,0.4);transform:translateY(-2px);}
+
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:3.5rem;padding-top:2.5rem;
+  border-top:1px solid var(--glass-border);
+  opacity:0;animation:fadeUp .85s 1s forwards;
+}
+.stat-v{
+  font-family:var(--syne);font-size:2rem;font-weight:800;display:block;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-l{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-f);margin-top:0.2rem;display:block;}
+
+/* ── GLASS CARD — shared ── */
+.glass{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  backdrop-filter:blur(20px);
+  position:relative;overflow:hidden;
+}
+.glass::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--glass-shine),transparent);
+}
+
+/* ── HERO RIGHT PANEL ── */
+.hero-right{
+  display:flex;flex-direction:column;gap:1rem;
+  position:relative;z-index:3;
+}
+.hr-card{
+  padding:1.5rem;
+}
+.hr-card-label{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--text-f);margin-bottom:1rem;
+}
+.skill-bar-wrap{margin-bottom:0.75rem;}
+.skill-bar-row{
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:0.64rem;letter-spacing:0.04em;
+  color:var(--text-m);margin-bottom:0.35rem;
+}
+.skill-bar-pct{
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.sb-track{height:3px;background:rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;}
+.sb-fill{
+  height:100%;border-radius:10px;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  box-shadow:0 0 8px rgba(255,107,53,0.6);
+  animation:barLoad 1.5s cubic-bezier(.4,0,.2,1) forwards;
+  transform-origin:left;transform:scaleX(0);
+}
+@keyframes barLoad{to{transform:scaleX(1);}}
+
+.chip-cloud{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.chip{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.06em;
+  text-transform:uppercase;padding:0.28rem 0.7rem;
+  border-radius:100px;
+  border:1px solid var(--glass-border);
+  color:var(--text-m);background:rgba(255,255,255,0.04);
+  transition:border-color .2s,color .2s;
+}
+.chip.on{
+  border-color:rgba(255,107,53,0.45);
+  color:var(--grad-a);
+  background:rgba(255,107,53,0.08);
+  box-shadow:0 0 10px rgba(255,107,53,0.15);
+}
+.status-row{display:flex;align-items:center;gap:0.65rem;font-family:var(--mono);font-size:0.7rem;color:var(--text-m);}
+.s-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 10px #4ADE80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  position:relative;z-index:3;overflow:hidden;
+  border-top:1px solid var(--glass-border);
+  border-bottom:1px solid var(--glass-border);
+  padding:0.9rem 0;
+  background:rgba(7,5,15,0.7);backdrop-filter:blur(12px);
+}
+.mq-track{display:flex;width:max-content;animation:mq 30s linear infinite;}
+.mq-item{
+  display:inline-flex;align-items:center;gap:1.2rem;padding:0 2rem;
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--text-f);white-space:nowrap;
+}
+.mq-sep{
+  width:4px;height:4px;border-radius:50%;
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+  box-shadow:0 0 6px var(--grad-a);
+}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── SECTIONS ── */
+section{padding:7rem 3.5rem;position:relative;z-index:3;}
+.s-eye{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.22em;
+  text-transform:uppercase;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s-eye::after{content:'';flex:0 0 36px;height:1px;background:linear-gradient(90deg,var(--grad-a),transparent);-webkit-text-fill-color:unset;background:none;border-top:1px solid rgba(255,107,53,0.4);}
+.s-title{
+  font-family:var(--syne);font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;line-height:1.08;letter-spacing:-0.01em;
+}
+.s-title .g{
+  background:linear-gradient(135deg,var(--grad-a),var(--grad-b),var(--grad-c));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.s-sub{font-size:1rem;color:var(--text-m);line-height:1.75;font-weight:300;max-width:52ch;margin-top:0.75rem;}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;margin-top:4rem;align-items:start;}
+.about-body{font-size:1.05rem;color:var(--text-m);line-height:1.9;font-weight:300;}
+.about-body p+p{margin-top:1.25rem;}
+.hl{
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  font-weight:500;
+}
+.skill-groups{display:flex;flex-direction:column;gap:1.75rem;}
+.sg{padding:1.5rem;border-radius:16px;}
+.sg-head{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.16em;
+  text-transform:uppercase;margin-bottom:0.9rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stags{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.stag{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;
+  padding:0.3rem 0.75rem;border-radius:100px;
+  border:1px solid var(--glass-border);color:var(--text-m);background:var(--glass-bg);
+  transition:border-color .2s,color .2s,box-shadow .2s;cursor:default;
+}
+.stag:hover{border-color:rgba(255,107,53,0.5);color:var(--grad-a);box-shadow:0 0 12px rgba(255,107,53,0.15);}
+
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column;gap:1.25rem;margin-top:4rem;}
+.exp-card{
+  display:grid;grid-template-columns:260px 1fr;
+  border-radius:20px;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.exp-card:hover{transform:translateY(-3px);box-shadow:0 20px 60px rgba(255,107,53,0.12);}
+.exp-meta{
+  padding:2.25rem 2rem;
+  border-right:1px solid var(--glass-border);
+  background:rgba(255,107,53,0.04);
+}
+.exp-rl{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;
+  text-transform:uppercase;margin-bottom:0.5rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.exp-co{font-family:var(--syne);font-size:1.2rem;font-weight:700;letter-spacing:0.02em;color:var(--text);margin-bottom:0.4rem;}
+.exp-dt{font-family:var(--mono);font-size:0.62rem;color:var(--text-f);letter-spacing:0.05em;}
+.exp-body{padding:2.25rem 2.5rem;}
+.exp-desc{font-size:0.95rem;color:var(--text-m);line-height:1.8;font-weight:300;margin-bottom:1.25rem;}
+.exp-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.etag{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.07em;text-transform:uppercase;
+  padding:0.25rem 0.7rem;border-radius:100px;
+  border:1px solid var(--glass-border);color:var(--text-f);background:rgba(255,255,255,0.03);
+}
+
+/* ── PROJECTS ── */
+.proj-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1.25rem;margin-top:4rem;
+}
+.proj-card{
+  padding:2.5rem;border-radius:20px;
+  text-decoration:none;color:inherit;
+  transition:transform .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.proj-card::after{
+  content:'↗';position:absolute;top:1.75rem;right:1.75rem;
+  font-size:1.1rem;color:var(--grad-a);
+  opacity:0;transform:translate(4px,-4px);
+  transition:opacity .25s,transform .25s;
+}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(255,107,53,0.14);}
+.proj-card:hover::after{opacity:1;transform:translate(0,0);}
+.proj-num{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;
+  margin-bottom:1.25rem;display:block;
+  background:linear-gradient(90deg,var(--grad-b),var(--grad-c));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.proj-name{
+  font-family:var(--syne);font-size:1.35rem;font-weight:700;
+  letter-spacing:0.01em;margin-bottom:0.75rem;color:var(--text);
+  transition:color .2s;
+}
+.proj-desc{font-size:0.875rem;color:var(--text-m);line-height:1.75;font-weight:300;margin-bottom:1.5rem;}
+
+/* ── WRITING ── */
+.art-list{display:flex;flex-direction:column;border-top:1px solid var(--glass-border);margin-top:3.5rem;}
+.art-item{
+  display:flex;align-items:baseline;justify-content:space-between;gap:2rem;
+  padding:1.5rem 0;border-bottom:1px solid var(--glass-border);
+  text-decoration:none;color:inherit;
+  transition:padding-left .3s cubic-bezier(.4,0,.2,1);position:relative;
+}
+.art-item:hover{padding-left:1.2rem;}
+.art-item::before{
+  content:'//';font-family:var(--mono);font-size:0.62rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  position:absolute;left:0;opacity:0;transition:opacity .2s;
+}
+.art-item:hover::before{opacity:1;}
+.art-t{font-family:var(--syne);font-size:1.1rem;font-weight:600;color:var(--text);transition:color .2s;flex:1;}
+.art-item:hover .art-t{
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.art-s{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-f);flex-shrink:0;}
+
+/* ── CERTIFICATIONS ── */
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3.5rem;}
+.cert-card{
+  padding:1.75rem;border-radius:16px;
+  transition:transform .3s,box-shadow .3s;
+}
+.cert-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(255,107,53,0.12);}
+.cert-issuer{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;
+  text-transform:uppercase;margin-bottom:0.5rem;
+  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cert-name{font-family:var(--syne);font-size:0.9rem;font-weight:600;color:var(--text);line-height:1.5;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:4rem;align-items:start;}
+.contact-body{font-size:1.05rem;color:var(--text-m);line-height:1.85;font-weight:300;margin-bottom:2.5rem;}
+.clinks{display:flex;flex-direction:column;gap:0.85rem;}
+.clink{
+  display:flex;align-items:center;gap:1rem;text-decoration:none;
+  font-family:var(--mono);font-size:0.78rem;letter-spacing:0.05em;color:var(--text-m);
+  transition:color .2s,gap .2s;
+}
+.clink:hover{color:var(--text);gap:1.35rem;}
+.clink-ico{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;color:var(--grad-a);flex-shrink:0;
+  transition:background .2s,box-shadow .2s;
+}
+.clink:hover .clink-ico{background:rgba(255,107,53,0.12);box-shadow:0 0 16px rgba(255,107,53,0.25);}
+
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;}
+.soc-btn{
+  display:flex;align-items:center;justify-content:space-between;
+  text-decoration:none;padding:1.25rem 1.5rem;border-radius:14px;
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--text-m);
+  transition:transform .25s,box-shadow .25s,color .2s;
+}
+.soc-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,53,0.15);color:var(--text);}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:3;
+  border-top:1px solid var(--glass-border);
+  padding:1.75rem 3.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(7,5,15,0.7);backdrop-filter:blur(12px);
+}
+.foot-logo{font-family:var(--syne);font-size:0.9rem;font-weight:800;color:var(--text-f);}
+.foot-copy{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-f);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+.d4{transition-delay:.32s;}.d5{transition-delay:.4s;}
+
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:5.5rem 1.5rem 3rem;}
+  .hero-right{display:none;}
+  section{padding:5rem 1.5rem;}
+  .about-grid{grid-template-columns:1fr;gap:3rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .certs-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;gap:3rem;}
+  .exp-card{grid-template-columns:1fr;}
+  .exp-meta{border-right:none;border-bottom:1px solid var(--glass-border);}
+  footer{flex-direction:column;gap:.5rem;text-align:center;}
+}
+</style>
 </head>
 <body>
-    <div class="cert-gallery">
-        <div class="cert-display">
 
-        </div>
+<!-- EMBER PARTICLE CANVAS -->
+<canvas id="ember-canvas"></canvas>
+<div class="bg-mesh"></div>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ishan <span>Rastogi</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:ishanrastogi26@gmail.com" class="nav-pill">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div>Full Stack Developer · AI Agent Architect</div>
+    <h1 class="hero-name">
+      <span>Ishan</span><br/>
+      <span class="fill">Rastogi</span>
+    </h1>
+    <p class="hero-role">MERN · LangChain · FastAPI · TensorFlow</p>
+    <p class="hero-desc">I build end-to-end systems and intelligent agents — from polished interfaces to multi-agent AI pipelines. Shipping real products at Epidise Healthcare. Based in Dehradun, India.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-glow">View Projects</a>
+      <a href="mailto:ishanrastogi26@gmail.com" class="btn-glass">Email Me</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-v">9.4</span><span class="stat-l">CGPA</span></div>
+      <div><span class="stat-v">15+</span><span class="stat-l">Articles</span></div>
+      <div><span class="stat-v">10k+</span><span class="stat-l">Views</span></div>
+      <div><span class="stat-v">7</span><span class="stat-l">Certs</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="glass hr-card">
+      <div class="hr-card-label">Skill Matrix</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row"><span>Full Stack Dev</span><span class="skill-bar-pct">92%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:92%;animation-delay:.4s"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row"><span>AI Agent Design</span><span class="skill-bar-pct">85%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:85%;animation-delay:.6s"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row"><span>UI/UX Design</span><span class="skill-bar-pct">80%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:80%;animation-delay:.8s"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row"><span>ML / Deep Learning</span><span class="skill-bar-pct">72%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:72%;animation-delay:1s"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row"><span>React Native</span><span class="skill-bar-pct">75%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width:75%;animation-delay:1.2s"></div></div>
+      </div>
     </div>
 
-    <!-- Introducing Me Section -->
-    <section class="about">
-        <div class="stripe top-stripe">
-            <img src="./public/graphics/emoji-avatar.gif" alt="">
+    <div class="glass hr-card">
+      <div class="hr-card-label">Active Stack</div>
+      <div class="chip-cloud">
+        <span class="chip on">LangChain</span>
+        <span class="chip on">FastAPI</span>
+        <span class="chip on">React</span>
+        <span class="chip on">Node.js</span>
+        <span class="chip on">MongoDB</span>
+        <span class="chip">TensorFlow</span>
+        <span class="chip on">Python</span>
+        <span class="chip">Neo4j</span>
+        <span class="chip">PyTorch</span>
+        <span class="chip">AWS</span>
+      </div>
+    </div>
+
+    <div class="glass hr-card">
+      <div class="hr-card-label">Current Mission</div>
+      <div class="status-row">
+        <div class="s-dot"></div>
+        <span>Full Stack Engineer @ Epidise Healthcare</span>
+      </div>
+      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-f);margin-top:0.5rem;letter-spacing:0.04em;">Tele-dermatology platform · Dehradun, India</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="mq-track">
+    <span class="mq-item"><span class="mq-sep"></span>MERN Stack</span>
+    <span class="mq-item"><span class="mq-sep"></span>LangChain</span>
+    <span class="mq-item"><span class="mq-sep"></span>FastAPI</span>
+    <span class="mq-item"><span class="mq-sep"></span>React Native</span>
+    <span class="mq-item"><span class="mq-sep"></span>Python</span>
+    <span class="mq-item"><span class="mq-sep"></span>TensorFlow</span>
+    <span class="mq-item"><span class="mq-sep"></span>Neo4j · Cypher</span>
+    <span class="mq-item"><span class="mq-sep"></span>Multi-Agent AI</span>
+    <span class="mq-item"><span class="mq-sep"></span>WebRTC</span>
+    <span class="mq-item"><span class="mq-sep"></span>MongoDB</span>
+    <span class="mq-item"><span class="mq-sep"></span>AWS Cloud</span>
+    <span class="mq-item"><span class="mq-sep"></span>PyTorch</span>
+    <span class="mq-item"><span class="mq-sep"></span>SQL · Databases</span>
+    <span class="mq-item"><span class="mq-sep"></span>GraphQL</span>
+    <span class="mq-item"><span class="mq-sep"></span>MERN Stack</span>
+    <span class="mq-item"><span class="mq-sep"></span>LangChain</span>
+    <span class="mq-item"><span class="mq-sep"></span>FastAPI</span>
+    <span class="mq-item"><span class="mq-sep"></span>React Native</span>
+    <span class="mq-item"><span class="mq-sep"></span>Python</span>
+    <span class="mq-item"><span class="mq-sep"></span>TensorFlow</span>
+    <span class="mq-item"><span class="mq-sep"></span>Neo4j · Cypher</span>
+    <span class="mq-item"><span class="mq-sep"></span>Multi-Agent AI</span>
+    <span class="mq-item"><span class="mq-sep"></span>WebRTC</span>
+    <span class="mq-item"><span class="mq-sep"></span>MongoDB</span>
+    <span class="mq-item"><span class="mq-sep"></span>AWS Cloud</span>
+    <span class="mq-item"><span class="mq-sep"></span>PyTorch</span>
+    <span class="mq-item"><span class="mq-sep"></span>SQL · Databases</span>
+    <span class="mq-item"><span class="mq-sep"></span>GraphQL</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="s-eye">01 — About</div>
+    <h2 class="s-title">Systems that <span class="g">think</span><br/>and ship</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-body reveal d1">
+      <p>I am a <span class="hl">full-stack developer and AI agent architect</span> pursuing BCA (Hons.) with Specialization in AI & Data Science at Graphic Era Hill University — 9.4 CGPA. I operate at the intersection of product engineering and intelligent systems.</p>
+      <p>At <span class="hl">Epidise Healthcare</span>, a DPIIT-certified startup, I own the complete product lifecycle — UI/UX design, backend architecture, database schema, and cloud deployment on Vercel. Every line of the live product is mine.</p>
+      <p>My edge is in <span class="hl">multi-agent AI pipelines</span> — systems where LLMs orchestrate real tools to solve complex problems autonomously. Not just chatbots. Actual reasoning chains.</p>
+      <p>Previously wrote 15 technical articles for <span class="hl">GeeksForGeeks</span>, accumulating 10,000+ views — proving I can explain complex systems as clearly as I can build them.</p>
+    </div>
+    <div class="skill-groups reveal d2">
+      <div class="glass sg">
+        <div class="sg-head">Frontend</div>
+        <div class="stags">
+          <span class="stag">MERN Stack</span><span class="stag">React Native</span>
+          <span class="stag">Tailwind CSS</span><span class="stag">HTML · CSS · JS</span><span class="stag">jQuery</span>
         </div>
-        <div class="text">
-            <h1 class="heading">Developer | Designer | Content Writer</h1>
-            <p>
-                Hi, I am <b> Ishan </b>. As a multi-talented professional with a passion for technology and creativity, I bring a unique blend of skills in web development, Python programming, UI/UX design, and content writing. With a deep understanding of the digital landscape, I strive to create innovative and user-centric solutions. In all my endeavors, I am a dedicated problem-solver and a lifelong learner. I thrive in collaborative environments where I can contribute my skills and learn from others.
-            </p>
+      </div>
+      <div class="glass sg">
+        <div class="sg-head">Backend & Databases</div>
+        <div class="stags">
+          <span class="stag">Node.js</span><span class="stag">FastAPI</span>
+          <span class="stag">Python Flask</span><span class="stag">MongoDB Atlas</span>
+          <span class="stag">SQL</span><span class="stag">Neo4j · Cypher</span>
         </div>
-    </section>
-
-    <!-- Graphics Section -->
-    <section class="graphics">
-        <h1 class="heading"> "Adapt to be the BEST" </h1>
-        <img src="./public/graphics/home-graphic.png" alt="">
-    </section>
-
-    <!-- My Skills Section -->
-    <section class="skills">
-        <h1 class="heading">My Skills</h1>
-        <div class="container">
-
-            <article class="skill">
-                <i class="fa-brands fa-python icon"></i>
-                <h3> Python</h3>
-                <p>
-                    I excel in Python programming. With proficiency in building GUI apps and games using Turtle, creating web APIs and performing web scraping, and constructing robust web servers, I harness the power of Python to transform ideas into functional and innovative solutions across various domains.
-                </p>
-                
-            </article>
-            <article class="skill">
-                <i class="fa-solid fa-chart-line icon"></i>
-                <h3> Data Science & Machine Learning</h3>
-                <p>
-                    Armed with a passion for extracting valuable insights from complex datasets, I leverage my expertise in statistical analysis, machine learning, and data visualization to uncover meaningful patterns and drive informed decision-making.
-                </p>
-                
-            </article>
-
-            <article class="skill">
-                <i class="fa-solid fa-keyboard icon"></i>
-                <h3> Prompt Engineering</h3>
-                <p>
-                    I can effectively guide and direct AI models to generate highly specific and contextually relevant outputs. My proficiency in harnessing the power of large language models allows me to create innovative and impactful solutions across various domains, leveraging the cutting-edge technology of today's AI landscape
-                </p>
-                
-            </article>
-
-            <article class="skill">
-                <i class="fa-solid fa-globe icon"></i>
-                <h3> Web Development </h3>
-                <p>
-                    Transforming ideas into dynamic and visually captivating websites, I utilize my expertise in HTML, CSS, JavaScript, and modern frameworks such as MERN Stack to create immersive online experiences that seamlessly blend aesthetics with functionality.
-                </p>
-                
-            </article>
-
-            <!-- <article class="skill">
-                <i class="fa-solid fa-mobile icon"></i>
-                <h3> Mobile App Development </h3>
-                <p>
-                    Developing elegant looking applications using Flutter with efficient and scalable server-side scripting and database management.
-                </p>
-            </article>  -->
-
-            <article class="skill">
-                <i class="fa-solid fa-database icon"></i>
-                <h3> Database Management & SQL </h3>
-                <p>
-                    With a strong command over Structured Query Language (SQL), I excel in database design, optimization, and data manipulation. By crafting complex queries I leverage SQL to efficiently manage and extract valuable insights from vast datasets.
-                </p>
-                
-            </article>
-            
-            <article class="skill">
-                <i class="fa-solid fa-pen-nib icon"></i>
-                <h3> Content Writing & Designing </h3>
-                <p>
-                    With a passion for words and a keen eye for storytelling, I specialize in crafting compelling and engaging content. I also excel in content design and UI design. By seamlessly blending visually appealing aesthetics with user-centric experiences.
-                </p>
-            </article>
+      </div>
+      <div class="glass sg">
+        <div class="sg-head">AI & Machine Learning</div>
+        <div class="stags">
+          <span class="stag">LangChain</span><span class="stag">GADK</span>
+          <span class="stag">TensorFlow</span><span class="stag">PyTorch</span>
+          <span class="stag">EDA</span><span class="stag">Multi-Agent Systems</span>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" >
-        <h1 class="heading"> Featured Projects</h1>
-        <div class="container">
-            <div class="left">
-                <img src="./public/graphics/projects-left-section-graphic.png" alt="">
-                <a href="https://github.com/Ishan2608" target="_blank" class="btn">View More</a>
-            </div>
-            <div class="right">
-
-                <article class="project">
-                    <h3>
-                        <a href="https://www.epidise.com/" target="_blank">
-                            Epidise - Website
-                        </a>
-                    </h3>
-                    <p>
-                        A website for the Epidise company, built with elegance and professionalism. It provides users with a beautiful experience and gives them a clear idea what the startup is about.
-                    </p>
-                </article>
-
-                <article class="project">
-                    <h3>
-                        <a href="https://github.com/Ishan2608/Rooms" target="_blank">
-                            Rooms
-                        </a>
-                    </h3>
-                    <p>
-                        A fullstack chat application to share text, images and files messages to other users as well as groups. Enhanced security with Blocking and Unblocking functionality as well as handling messages from unknown users.
-                    </p>
-                </article>
-
-                <article class="project">
-                    <h3>
-                        <a href="https://github.com/Ishan2608/SpaceGeek" target="_blank">
-                            Space Geek
-                        </a>
-                    </h3>
-                    <p>
-                        A simple web application for space lovers to stay updated with past and upcoming space events, latest news, a solar system simulator, and an image library. It utilizes various API services to display its dynamic contents.
-                    </p>
-                </article>
-
-                <article class="project">
-                    <h3>
-                        <a href="https://github.com/Ishan2608/Space_Invaders" target="_blank">
-                            Space Invader Clone
-                        </a>
-                    </h3>
-                    <p>
-                        Using Python's "turtle" library, I have recreated the classic Space Invaders game, bringing nostalgia to life in a modern context. Players can embark on an exciting journey to defend the Earth by controlling a spaceship and battling against waves of descending alien invaders.
-                    </p>
-                </article>
-
-                <article class="project">
-                    <h3>
-                        <a href="https://github.com/Ishan2608/Breakout_Game" target="_blank">
-                            Breakout Game Clone
-                        </a>
-                    </h3>
-                    <p>
-                        I present a delightful clone of the classic Breakout game. Players will experience a thrilling challenge as they control a paddle to bounce a ball and break through a wall of colorful bricks.
-                    </p>
-                </article>
-<!-- 
-                <article class="project">
-                    <h3>
-                        <a href="https://github.com/Ishan2608/Typing_Speed_Test" target="_blank">
-                            Desktop GUI App - Typing Speed Test
-                        </a>
-                    </h3>
-                    <p>
-                        I have developed an engaging desktop application that allows users to test and improve their typing speed. With a user-friendly interface, the application prompts users to type several displayed texts within a specified time limit.
-                    </p>
-                </article> -->
-
-            </div>
+      </div>
+      <div class="glass sg">
+        <div class="sg-head">Dev & Cloud</div>
+        <div class="stags">
+          <span class="stag">Git · GitHub</span><span class="stag">AWS</span>
+          <span class="stag">Vercel</span><span class="stag">REST APIs</span><span class="stag">GraphQL</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Blogs Section -->
-    <section class="blogs">
-        <h1 class="heading">Featured Articles</h1>
-        <div class="container">
-            <div class="left">
-                <article class="blog">
-                    <h3>
-                        <a href="https://www.geeksforgeeks.org/build-gui-application-for-guess-indian-state-using-tkinter-python/" target="_blank">
-                            GUI App - Guess the Name of Indian States
-                        </a>
-                    </h3>
-                    <p>
-                        A quiz game built using Python Turtle where the user has to guess the names of Indian states, which, if guessed correctly, are placed on the Indian map, and the user gets a list of missed states after the game is over.
-                    </p>
-                </article>
-                
-                <article class="blog">
-                    <h3>
-                        <a href="https://www.geeksforgeeks.org/create-breakout-game-using-python/" target="_blank">
-                            Complete Guide to Build Breakout Game Clone using Python-Turtle
-                        </a>
-                    </h3>
-                    <p>
-                        Build a desktop game using the turtle library of Python. Get 5 lives to begin with, pause and resume the game whenever you want, keep track of your high score, and break bricks with different toughness.
-                    </p>
-                </article>
-
-                <article class="blog">
-                    <h3>
-                        <a href="https://www.geeksforgeeks.org/image-colour-palette-generator-flask//" target="_blank">
-                            Guide to Building Images's Color Palette Extractor
-                        </a>
-                    </h3>
-                    <p>
-                        Build a web application to where the user uploads an image and the application calculates the 10 most occurring colors used in it. Learn the step by step process to build it and make it your own.
-                    </p>
-                </article>
-
-                <article class="blog">
-                    <h3>
-                        <a href="https://www.geeksforgeeks.org/how-is-blockchain-different-from-a-linked-list/" target="_blank">
-                            Difference between Linked List and Blockchain
-                        </a>
-                    </h3>
-                    <p>
-                        In this insightful article, we delve into the intriguing world of data structures to highlight the contrasting features of linked lists and blockchains. By unraveling the fundamental principles and mechanisms behind each, we shed light on how these structures differ in terms of design, functionality, and real-world applications.
-                    </p>
-                </article>
-                <article class="blog">
-                    <h3>
-                        <a href="https://www.geeksforgeeks.org/snowfall-animation-effect-using-css/" target="_blank">
-                            Pure CSS - Snowfall Animation 
-                        </a>
-                    </h3>
-                    <p>
-                        Experience the enchantment of a snowy landscape with this captivating frontend animation created purely with CSS. Watch as delicate snowflakes elegantly fall across the screen, bringing a touch of magic to your web page. 
-                    </p>
-                </article>
-
-
-            </div>
-            <div class="right">
-                <img src="./public/graphics/blogs-sections-right-graphic.gif" alt="">
-                <a href="https://auth.geeksforgeeks.org/user/ishanrastogi26/articles" target="_blank" class="btn">View More</a>
-            </div>
+<!-- EXPERIENCE -->
+<section id="experience" style="background:rgba(13,10,30,0.6);">
+  <div class="reveal">
+    <div class="s-eye">02 — Experience</div>
+    <h2 class="s-title">Where I've <span class="g">shipped</span></h2>
+  </div>
+  <div class="exp-list">
+    <div class="glass exp-card reveal d1">
+      <div class="exp-meta">
+        <div class="exp-rl">Full Stack Engineer</div>
+        <div class="exp-co">Epidise Healthcare</div>
+        <div class="exp-dt">March 2025 — Present</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-desc">Owned end-to-end UI/UX design and backend system architecture for a tele-dermatology platform connecting patients with verified dermatologists across India. Designed, built, and deployed the live product on Vercel — driving the roadmap from ideation to a publicly accessible platform. DPIIT Certified — Cert No. DIPP248613.</p>
+        <div class="exp-tags">
+          <span class="etag">MERN Stack</span><span class="etag">Vercel</span>
+          <span class="etag">UI/UX Design</span><span class="etag">System Architecture</span>
         </div>
-    </section>
-
-    <!-- <section id="genAIImages">
-        <h1 class="heading">My GenAI Images</h1>
-        <div class="slider">
-            <div class="slider-img-container">
-                <img src="./public/images/for_slider/krishna1.jfif" alt="" class="AI-image">
-            </div>
-            <div class="slider-img-container">
-                <img src="./public/images/for_slider/Indian_Warrior.jpeg" alt="" class="AI-image">
-            </div>
-            <div class="slider-img-container center">
-                <img src="./public/images/for_slider/Samurai.jpg" alt="" class="AI-image">
-            </div>
-            <div class="slider-img-container">
-                <img src="./public/images/for_slider/panda 2.jpg" alt="" class="AI-image">
-            </div>
+      </div>
+    </div>
+    <div class="glass exp-card reveal d2">
+      <div class="exp-meta">
+        <div class="exp-rl">Freelance Technical Writer</div>
+        <div class="exp-co">GeeksForGeeks</div>
+        <div class="exp-dt">May 2022 — March 2023</div>
+      </div>
+      <div class="exp-body">
+        <p class="exp-desc">Authored 15 original technical articles on programming, data structures, algorithms, and core CS concepts — collectively earning 10,000+ views. Revised and improved 5 existing articles for technical accuracy and clarity. Built code guides and project documentation for guided teaching.</p>
+        <div class="exp-tags">
+          <span class="etag">Technical Writing</span><span class="etag">Python</span>
+          <span class="etag">DSA</span><span class="etag">Documentation</span><span class="etag">Flask</span>
         </div>
-        <button id="prevBtn" class="nav-btn">❮</button>
-        <button id="nextBtn" class="nav-btn">❯</button>
-    </section> -->
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="works">
-        <h1 class="heading">My Works and Experiences</h1>
-        <div class="container">
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="s-eye">03 — Projects</div>
+    <h2 class="s-title">Things I've <span class="g">built</span></h2>
+    <p class="s-sub">Selected work — intelligent agents, real-time infrastructure, full-stack platforms.</p>
+  </div>
+  <div class="proj-grid">
+    <div class="glass proj-card reveal d1">
+      <span class="proj-num">PROJECT — 001</span>
+      <div class="proj-name">Artha — AI Financial Agent</div>
+      <p class="proj-desc">Multi-tool, multi-agent backend on LangChain enabling natural-language conversations about Indian stock markets. Agent dynamically invokes tools — live prices via YFinance, technical and fundamental analysis, news via NewsAPI and Tavily, document parsing, and price forecasting via Amazon Chronos. Powered by Gemma with a FastAPI backend.</p>
+      <div class="exp-tags">
+        <span class="etag">LangChain</span><span class="etag">FastAPI</span><span class="etag">Gemma</span>
+        <span class="etag">Amazon Chronos</span><span class="etag">YFinance</span>
+      </div>
+    </div>
+    <div class="glass proj-card reveal d2">
+      <span class="proj-num">PROJECT — 002</span>
+      <div class="proj-name">NextRoom — Video Calling</div>
+      <p class="proj-desc">Multi-user video calling and real-time chat application in core HTML, CSS, and JavaScript — no third-party SDK. Implemented WebRTC peer-to-peer communication and a Socket.IO signaling server entirely from scratch. Google Meet-style interface with full media controls and complete stream sovereignty.</p>
+      <div class="exp-tags">
+        <span class="etag">WebRTC</span><span class="etag">Socket.IO</span>
+        <span class="etag">Node.js</span><span class="etag">JavaScript</span>
+      </div>
+    </div>
+    <div class="glass proj-card reveal d3">
+      <span class="proj-num">PROJECT — 003</span>
+      <div class="proj-name">Epidise — Healthcare Website</div>
+      <p class="proj-desc">Public-facing website for Epidise Healthcare Private Limited, built entirely with HTML, CSS, and JavaScript without AI assistance. A deliberate showcase of manual frontend craftsmanship and pixel-level responsive design. Live at epidise.com, deployed on Vercel.</p>
+      <div class="exp-tags">
+        <span class="etag">HTML · CSS · JS</span><span class="etag">Responsive</span><span class="etag">Vercel</span>
+      </div>
+    </div>
+    <div class="glass proj-card reveal d4">
+      <span class="proj-num">PROJECT — 004</span>
+      <div class="proj-name">Rooms — Full-Stack Chat App</div>
+      <p class="proj-desc">Full-stack real-time chat for text, image, and file sharing in direct messages and group rooms. Enhanced security with blocking, unblocking, and unknown-sender message handling. Deep dive into real-time architecture, authentication flows, and complete MERN engineering.</p>
+      <div class="exp-tags">
+        <span class="etag">MERN</span><span class="etag">Socket.IO</span>
+        <span class="etag">MongoDB</span><span class="etag">Real-time</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <article class="work">
-                <h3>GeeksforGeeks - Technical Content Writer</h3>
-                <div class="work-image">
-                    <img src="./public/images/work/GfG-Technical-Content-Writer.png" alt="Technical Content Writer at GFG">
-                </div>
-                <p>
-                    During my internship at Geeks for Geeks, a renowned technology platform, I had the opportunity to dive into the world of technical content writing. As a part of the team, I crafted comprehensive and user-friendly guides, empowering aspiring programmers to build various projects.
-                </p>
-                <a href="https://auth.geeksforgeeks.org/user/ishanrastogi26" target="_blank" class="btn">Learn More</a>
-            </article>
+<!-- WRITING -->
+<section id="writing" style="background:rgba(13,10,30,0.6);">
+  <div class="reveal">
+    <div class="s-eye">04 — Writing</div>
+    <h2 class="s-title">Technical <span class="g">articles</span></h2>
+    <p class="s-sub">Published on GeeksForGeeks — 15 articles, 10,000+ views.</p>
+  </div>
+  <div class="art-list reveal d1">
+    <a href="https://www.geeksforgeeks.org/build-gui-application-for-guess-indian-state-using-tkinter-python/" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t">GUI App — Guess the Name of Indian States</span>
+      <span class="art-s">GeeksForGeeks</span>
+    </a>
+    <a href="https://www.geeksforgeeks.org/create-breakout-game-using-python/" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t">Complete Guide to Build Breakout Game Clone using Python Turtle</span>
+      <span class="art-s">GeeksForGeeks</span>
+    </a>
+    <a href="https://www.geeksforgeeks.org/image-colour-palette-generator-flask/" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t">Building an Image Color Palette Extractor with Flask</span>
+      <span class="art-s">GeeksForGeeks</span>
+    </a>
+    <a href="https://www.geeksforgeeks.org/how-is-blockchain-different-from-a-linked-list/" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t">Difference Between Linked List and Blockchain</span>
+      <span class="art-s">GeeksForGeeks</span>
+    </a>
+    <a href="https://www.geeksforgeeks.org/snowfall-animation-effect-using-css/" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t">Pure CSS Snowfall Animation Effect</span>
+      <span class="art-s">GeeksForGeeks</span>
+    </a>
+    <a href="https://auth.geeksforgeeks.org/user/ishanrastogi26/articles" class="art-item" target="_blank" rel="noopener">
+      <span class="art-t" style="background:linear-gradient(90deg,var(--grad-a),var(--grad-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">View all 15 articles on GeeksForGeeks</span>
+      <span class="art-s">Profile →</span>
+    </a>
+  </div>
+</section>
 
-            <article class="work">
-                <h3>Designing to Heart's Content</h3>
-                <div class="work-image">
-                    <img src="./public/images/work/Canva 200 Design Milestone Badge Redesigned.gif" alt="Completed 200 Designs in Canva">
-                </div>
-                <p>
-                    Recently, I was awarded a prestigious badge from Canva, recognizing my accomplishment of creating 200 designs on their platform. Leveraging Canva's versatile tools and extensive library, I have honed my skills in graphic design, creating visually appealing and impactful designs for various purposes.
-                </p>
-                <a href="./public/images/work/Canva 200 Design Milestone Badge Redesigned.gif" target="_blank" class="btn">View</a>
-            </article>
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="reveal">
+    <div class="s-eye">05 — Credentials</div>
+    <h2 class="s-title">Certifications <span class="g">unlocked</span></h2>
+  </div>
+  <div class="certs-grid">
+    <div class="glass cert-card reveal d1">
+      <div class="cert-issuer">Google</div>
+      <div class="cert-name">AI Essentials</div>
+    </div>
+    <div class="glass cert-card reveal d2">
+      <div class="cert-issuer">IBM</div>
+      <div class="cert-name">Deep Learning with TensorFlow and Keras</div>
+    </div>
+    <div class="glass cert-card reveal d3">
+      <div class="cert-issuer">AWS</div>
+      <div class="cert-name">Cloud Practitioner</div>
+    </div>
+    <div class="glass cert-card reveal d1">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">TensorFlow for Deep Learning Bootcamp</div>
+    </div>
+    <div class="glass cert-card reveal d2">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">NodeJS — Complete Guide (MVC, REST APIs, GraphQL, Deno)</div>
+    </div>
+    <div class="glass cert-card reveal d3">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">Python for Machine Learning & Data Science Masterclass</div>
+    </div>
+    <div class="glass cert-card reveal d1" style="grid-column:span 3;">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">100 Days of Code: The Complete Python Pro Bootcamp</div>
+    </div>
+  </div>
+</section>
 
-            <article class="work">
-                <h3>Care for Air India - Content Designing</h3>
-                <div class="work-image">
-                    <img src="./public/images/work/CFA-Content.png" alt="Content Team Certificate">
-                </div>
-                <p>
-                    During my internship at Care for Air India, a dedicated organization focused on raising awareness about the growing issue of air pollution among young children, I had the privilege to be a part of their content creation team.
-                </p>
-                <a href="http://www.careforair.org/" target="_blank" class="btn">Learn More</a>
-            </article>
-
-            <article class="work">
-                <h3>Care for Air India - Presenting Views</h3>
-                <div class="work-image">
-                    <img src="./public/images/work/CFA-Presenters.png" alt="Presenter Team Certificate">
-                </div>
-                <p>
-                    As a presenter, I had the opportunity to deliver impactful presentations and engage with audiences, including school children, to educate them about the detrimental effects of air pollution and the importance of clean air. Through interactive sessions and engaging visuals, I played a pivotal role in spreading awareness, inspiring behavioral changes, and fostering a sense of environmental responsibility among the youth.
-                </p>
-                <a href="http://www.careforair.org/" target="_blank" class="btn">Learn More</a>
-            </article>
-
-            
+<!-- CONTACT -->
+<section id="contact" style="background:rgba(13,10,30,0.6);">
+  <div class="reveal">
+    <div class="s-eye">06 — Contact</div>
+    <h2 class="s-title">Let's build something <span class="g">together</span></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="reveal d1">
+      <p class="contact-body">Open to full-time roles, freelance projects, and collaborations worth building. If you have a hard problem and need someone who ships end-to-end — I want to hear about it.</p>
+      <div class="clinks">
+        <a href="mailto:ishanrastogi26@gmail.com" class="clink">
+          <div class="clink-ico">@</div>ishanrastogi26@gmail.com
+        </a>
+        <a href="tel:+917906033209" class="clink">
+          <div class="clink-ico">#</div>+91 79060 33209
+        </a>
+        <div class="clink">
+          <div class="clink-ico">⌖</div>Dehradun, Uttarakhand, India
         </div>
-    </section>
+      </div>
+    </div>
+    <div class="social-grid reveal d2">
+      <a href="https://github.com/Ishan2608" class="glass soc-btn" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+      <a href="https://www.linkedin.com/in/ishan-rastogi-672a5a195/" class="glass soc-btn" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
+      <a href="https://auth.geeksforgeeks.org/user/ishanrastogi26" class="glass soc-btn" target="_blank" rel="noopener">GeeksForGeeks <span>↗</span></a>
+      <a href="https://www.kaggle.com/" class="glass soc-btn" target="_blank" rel="noopener">Kaggle <span>↗</span></a>
+      <a href="https://www.epidise.com/" class="glass soc-btn" target="_blank" rel="noopener" style="grid-column:span 2;">Epidise.com — Live Work ↗</a>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <h1 class="heading">Contact Me</h1>
-        <div class="container">
-            <div class="left">
-                <img src="./public/images/myself-footer.jpg" alt="">
-            </div>
-            <div class="right">
-                <div class="wrapper">
-                    <img src="./public/graphics/My Logo.png" alt="" class="logo">
-                </div>
-                <div class="wrapper">
-                    <h3 class="tag-line">
-                        "Lets learn, lets apply, lets work together and build something memorable."
-                    </h3>
-                </div>
-                <div class="wrapper">
+<footer>
+  <div class="foot-logo">Ishan Rastogi</div>
+  <div class="foot-copy">© 2026 · Full Stack Developer · AI Agent Architect</div>
+</footer>
 
-                    <div class="contacts">
-                        <h3> <i class="fa-solid fa-location-dot"></i> Dehradun, India</h3>
-                        <h3> <i class="fa-solid fa-phone"></i> +91 7906033209</h3>
-                        <h3> <i class="fa-sharp fa-solid fa-envelopes-bulk"></i> ishanrastogi26@gmail.com</h3>
-                    </div>
-                </div>
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),cring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(tick);})();
+document.querySelectorAll('a,button,.proj-card,.exp-card,.art-item,.cert-card,.soc-btn,.stag').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('h');cring.classList.add('h');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('h');cring.classList.remove('h');});
+});
 
-                <div class="wrapper">
-                    <div class="socials">
-                        <a href="https://github.com/Ishan2608" target="_blank" title="GitHub">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/ishan-rastogi-672a5a195/" target="_blank" title="LinkedIn">
-                            <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                        <a href="https://twitter.com/ishanrastogi26" target="_blank" title="Twitter">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                        <!-- <a href="https://www.facebook.com/ishan.rastogi.501" target="_blank" title="Facebook">
-                            <i class="fa-brands fa-facebook"></i>
-                        </a> -->
-                        <a href="https://contra.com/ishan_rastogi_vkt0frzy?utm_campaign=social_sharing&utm_medium=independent_share&utm_source=copy_link" target="_blank" title="Contra">
-                            <i class="fa-solid fa-star"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="stripe bottom-stripe"></div>
-    </footer>
+/* ── SCROLL REVEAL ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-    <script src="./public/js/slider.js"></script>
+/* ── EMBER PARTICLES ── */
+const canvas=document.getElementById('ember-canvas');
+const ctx=canvas.getContext('2d');
+let W=canvas.width=window.innerWidth,H=canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;});
+
+const COLORS=['#FF8C42','#FFD166','#FF4D6D','#FF6B35','#FFB347','#FF3CAC'];
+const embers=[];
+const MAX=140;
+
+class Ember{
+  constructor(x,y,burst){
+    this.x=x||Math.random()*W;
+    this.y=y||H+10;
+    this.r=burst?Math.random()*3+1:Math.random()*2.5+0.5;
+    this.vx=(Math.random()-.5)*(burst?6:1.5);
+    this.vy=burst?-(Math.random()*8+4):-(Math.random()*1.5+0.5);
+    this.life=1;
+    this.decay=burst?Math.random()*0.02+0.012:Math.random()*0.008+0.004;
+    this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
+    this.twinkle=Math.random()*Math.PI*2;
+    this.twinkleSpeed=Math.random()*0.08+0.04;
+    this.trail=[];
+  }
+  update(){
+    this.trail.push({x:this.x,y:this.y,life:this.life});
+    if(this.trail.length>8)this.trail.shift();
+    this.x+=this.vx;
+    this.vy-=0.008;
+    this.vx*=0.995;
+    this.y+=this.vy;
+    this.life-=this.decay;
+    this.twinkle+=this.twinkleSpeed;
+    this.r=Math.max(0,this.r-0.004);
+  }
+  draw(){
+    /* trail */
+    for(let i=0;i<this.trail.length;i++){
+      const t=this.trail[i];
+      const a=(i/this.trail.length)*this.life*0.3;
+      ctx.beginPath();
+      ctx.arc(t.x,t.y,this.r*0.6*(i/this.trail.length),0,Math.PI*2);
+      ctx.fillStyle=this.color.replace(')',`,${a})`).replace('rgb','rgba').replace('#','').slice(0,-1);
+      ctx.globalAlpha=a;
+      ctx.fill();
+    }
+    /* glow core */
+    const tw=0.7+Math.sin(this.twinkle)*0.3;
+    ctx.globalAlpha=this.life*tw;
+    const g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r*4);
+    g.addColorStop(0,this.color);
+    g.addColorStop(0.4,this.color+'99');
+    g.addColorStop(1,'transparent');
+    ctx.fillStyle=g;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r*4,0,Math.PI*2);
+    ctx.fill();
+    /* solid core */
+    ctx.globalAlpha=this.life*tw;
+    ctx.fillStyle=this.color;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha=1;
+  }
+}
+
+/* spawn streams */
+const streams=[
+  {x:()=>W*.15,active:true},
+  {x:()=>W*.42,active:true},
+  {x:()=>W*.72,active:true},
+  {x:()=>W*.9,active:true},
+];
+let frame=0;
+
+function spawnStream(){
+  streams.forEach((s,i)=>{
+    if(frame%(18+i*4)===0&&embers.length<MAX){
+      const jitter=(Math.random()-.5)*60;
+      embers.push(new Ember(s.x()+jitter,H+5,false));
+    }
+  });
+}
+
+/* mouse burst */
+let lastBurst=0;
+document.addEventListener('mousemove',e=>{
+  const now=Date.now();
+  if(now-lastBurst>80&&embers.length<MAX+30){
+    lastBurst=now;
+    for(let i=0;i<2;i++)embers.push(new Ember(e.clientX+(Math.random()-.5)*10,e.clientY+(Math.random()-.5)*10,true));
+  }
+});
+
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  frame++;
+  spawnStream();
+  for(let i=embers.length-1;i>=0;i--){
+    embers[i].update();
+    embers[i].draw();
+    if(embers[i].life<=0||embers[i].y<-50)embers.splice(i,1);
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 </body>
 </html>
