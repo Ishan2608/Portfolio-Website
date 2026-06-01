@@ -6,9 +6,7 @@
 <title>Ishan Rastogi — Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -27,7 +25,7 @@
   --text:    #F0EEF8;
   --text-m:  #9B96B8;
   --text-f:  #5A5472;
-  --syne:    'Syne', sans-serif;
+  --syne:    'Montserrat', sans-serif;
   --inst:    'Instrument Sans', sans-serif;
   --mono:    'JetBrains Mono', monospace;
 }
@@ -511,7 +509,8 @@ footer{
   section{padding:5rem 1.5rem;}
   .about-grid{grid-template-columns:1fr;gap:3rem;}
   .proj-grid{grid-template-columns:1fr;}
-  .certs-grid{grid-template-columns:1fr 1fr;}
+  .certs-grid{grid-template-columns:1fr;}
+  .cert-card[style*="grid-column"]{grid-column:span 1!important;}
   .contact-grid{grid-template-columns:1fr;gap:3rem;}
   .exp-card{grid-template-columns:1fr;}
   .exp-meta{border-right:none;border-bottom:1px solid var(--glass-border);}
@@ -554,12 +553,12 @@ footer{
     <p class="hero-desc">I build end-to-end systems and intelligent agents — from polished interfaces to multi-agent AI pipelines. Shipping real products at Epidise Healthcare. Based in Dehradun, India.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-glow">View Projects</a>
-      <a href="mailto:ishanrastogi26@gmail.com" class="btn-glass">Email Me</a>
+      <a href="mailto:ishanrastogi26@gmail.com" class="btn-glass">Contact Me</a>
     </div>
     <div class="hero-stats">
       <div><span class="stat-v">9.4</span><span class="stat-l">CGPA</span></div>
       <div><span class="stat-v">15+</span><span class="stat-l">Articles</span></div>
-      <div><span class="stat-v">100K+</span><span class="stat-l">Views</span></div>
+      <div><span class="stat-v">100k+</span><span class="stat-l">Views</span></div>
       <div><span class="stat-v">7</span><span class="stat-l">Certs</span></div>
     </div>
   </div>
@@ -600,6 +599,7 @@ footer{
         <span class="chip">TensorFlow</span>
         <span class="chip on">Python</span>
         <span class="chip">Neo4j</span>
+        <span class="chip">PyTorch</span>
         <span class="chip">AWS</span>
       </div>
     </div>
@@ -642,8 +642,10 @@ footer{
     <span class="mq-item"><span class="mq-sep"></span>Multi-Agent AI</span>
     <span class="mq-item"><span class="mq-sep"></span>WebRTC</span>
     <span class="mq-item"><span class="mq-sep"></span>MongoDB</span>
-    <span class="mq-item"><span class="mq-sep"></span>AWS</span>
+    <span class="mq-item"><span class="mq-sep"></span>AWS Cloud</span>
+    <span class="mq-item"><span class="mq-sep"></span>PyTorch</span>
     <span class="mq-item"><span class="mq-sep"></span>SQL · Databases</span>
+    <span class="mq-item"><span class="mq-sep"></span>GraphQL</span>
   </div>
 </div>
 
@@ -664,7 +666,7 @@ footer{
       <div class="glass sg">
         <div class="sg-head">Frontend</div>
         <div class="stags">
-          <span class="stag">MERN Stack</span><span class="stag">Performance Optimization</span>
+          <span class="stag">MERN Stack</span><span class="stag">React Native</span>
           <span class="stag">Tailwind CSS</span><span class="stag">HTML · CSS · JS</span><span class="stag">jQuery</span>
         </div>
       </div>
@@ -726,7 +728,7 @@ footer{
         <p class="exp-desc">Authored 15 original technical articles on programming, data structures, algorithms, and core CS concepts — collectively earning 100,000+ views. Revised and improved 5 existing articles for technical accuracy and clarity. Built code guides and project documentation for guided teaching.</p>
         <div class="exp-tags">
           <span class="etag">Technical Writing</span><span class="etag">Python</span>
-          <span class="etag">Desktop Application</span><span class="etag">Documentation</span><span class="etag">Flask</span><span class="etag">Python</span><span class="etag">JavaScript</span><span class="etag">NodeJS</span>
+          <span class="etag">DSA</span><span class="etag">Documentation</span><span class="etag">Flask</span>
         </div>
       </div>
     </div>
