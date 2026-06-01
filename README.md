@@ -2,7 +2,7 @@
 
 A modern, dark-themed personal portfolio website built with pure HTML, CSS, and vanilla JavaScript. No frameworks. No build tools. Just clean, hand-crafted frontend code.
 
-**Live Site:** [ishan2608.github.io/Portfolio-Website](https://ishan2608.netlify.app/)
+**Live Site:** [https://ishan2608.netlify.app/](https://ishan2608.netlify.app/)
 
 ## Preview
 
