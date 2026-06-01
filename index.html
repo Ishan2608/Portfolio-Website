@@ -223,7 +223,79 @@ nav{
 }
 .stat-l{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-f);margin-top:0.2rem;display:block;}
 
-/* ── GLASS CARD — shared ── */
+/* ── TERMINAL CARD ── */
+.terminal-wrap{
+  width:100%;
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--glass-border);
+}
+.terminal-bar{
+  display:flex;align-items:center;gap:0.6rem;
+  padding:0.75rem 1rem;
+  background:rgba(255,255,255,0.06);
+  border-bottom:1px solid var(--glass-border);
+  flex-shrink:0;
+}
+.t-dot{width:11px;height:11px;border-radius:50%;}
+.t-dot.red{background:#FF5F57;}
+.t-dot.yellow{background:#FEBC2E;}
+.t-dot.green{background:#28C840;}
+.terminal-filename{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;
+  color:var(--text-f);margin-left:auto;margin-right:auto;
+  padding-right:2rem;
+}
+.terminal-body{
+  background:rgba(8,6,18,0.92);
+  padding:1.5rem 1.5rem 2rem;
+  font-family:var(--mono);font-size:0.76rem;line-height:1.85;
+  min-height:360px;
+  position:relative;
+  overflow:hidden;
+}
+.terminal-body::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(255,255,255,0.012) 30px,rgba(255,255,255,0.012) 31px);
+  pointer-events:none;
+}
+/* line numbers gutter */
+.t-line{display:flex;gap:1rem;position:relative;z-index:1;}
+.t-ln{color:var(--text-f);user-select:none;flex-shrink:0;min-width:1.2rem;text-align:right;font-size:0.65rem;margin-top:0.06rem;}
+.t-code{flex:1;white-space:pre-wrap;word-break:break-all;}
+
+/* syntax colors */
+.s-comment{color:#5A6480;}
+.s-keyword{color:#FF6B8A;}
+.s-fn{color:#82AAFF;}
+.s-str{color:#C3E88D;}
+.s-var{color:#FFCB6B;}
+.s-type{color:#89DDFF;}
+.s-punc{color:#89DDFF;}
+.s-num{color:#F78C6C;}
+.s-plain{color:#CDD3E0;}
+
+/* typing cursor */
+.t-cursor{
+  display:inline-block;width:2px;height:0.85em;
+  background:var(--grad-a);vertical-align:middle;
+  animation:blink 1s step-end infinite;
+  box-shadow:0 0 6px var(--grad-a);
+  margin-left:1px;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* status bar */
+.terminal-status{
+  display:flex;align-items:center;gap:1rem;
+  padding:0.5rem 1rem;
+  background:rgba(255,107,53,0.12);
+  border-top:1px solid rgba(255,107,53,0.2);
+}
+.ts-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;box-shadow:0 0 8px #4ADE80;animation:pulse 2s infinite;}
+.ts-text{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,107,53,0.8);}
+.ts-right{margin-left:auto;font-family:var(--mono);font-size:0.58rem;color:var(--text-f);}
 .glass{
   background:var(--glass-bg);
   border:1px solid var(--glass-border);
@@ -249,25 +321,67 @@ nav{
   font-family:var(--mono);font-size:0.6rem;letter-spacing:0.18em;
   text-transform:uppercase;color:var(--text-f);margin-bottom:1rem;
 }
-.skill-bar-wrap{margin-bottom:0.75rem;}
-.skill-bar-row{
-  display:flex;justify-content:space-between;
-  font-family:var(--mono);font-size:0.64rem;letter-spacing:0.04em;
-  color:var(--text-m);margin-bottom:0.35rem;
+/* ── SKILL ICON CARDS ── */
+.skill-icon-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0.55rem;
 }
-.skill-bar-pct{
-  background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+.sic{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:0.4rem;
+  padding:0.75rem 0.4rem;
+  border-radius:14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--glass-border);
+  position:relative;overflow:hidden;
+  transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;
+  cursor:default;
 }
-.sb-track{height:3px;background:rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;}
-.sb-fill{
-  height:100%;border-radius:10px;
-  background:linear-gradient(90deg,var(--grad-a),var(--grad-b));
-  box-shadow:0 0 8px rgba(255,107,53,0.6);
-  animation:barLoad 1.5s cubic-bezier(.4,0,.2,1) forwards;
-  transform-origin:left;transform:scaleX(0);
+.sic::before{
+  content:'';position:absolute;
+  top:0;left:-60%;width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);
+  transform:skewX(-20deg);
+  transition:left .5s;
 }
-@keyframes barLoad{to{transform:scaleX(1);}}
+.sic:hover::before{left:130%;}
+.sic:hover{
+  transform:translateY(-3px) scale(1.04);
+  border-color:rgba(255,107,53,0.4);
+  background:rgba(255,107,53,0.07);
+  box-shadow:0 8px 28px rgba(255,107,53,0.18),0 0 0 1px rgba(255,107,53,0.15);
+}
+.sic-icon{
+  font-size:1.3rem;line-height:1;
+  filter:drop-shadow(0 0 6px rgba(255,107,53,0.5));
+  transition:filter .25s,transform .25s;
+}
+.sic:hover .sic-icon{
+  filter:drop-shadow(0 0 12px rgba(255,107,53,0.9));
+  transform:scale(1.15);
+}
+.sic-label{
+  font-family:var(--mono);font-size:0.52rem;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--text-f);text-align:center;
+  transition:color .25s;line-height:1.3;
+}
+.sic:hover .sic-label{color:var(--text-m);}
+.sic.featured{
+  border-color:rgba(255,107,53,0.3);
+  background:rgba(255,107,53,0.06);
+}
+.sic.featured .sic-label{color:rgba(255,107,53,0.7);}
+/* animated glow ring on featured */
+.sic.featured::after{
+  content:'';position:absolute;inset:-1px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,107,53,0.25),rgba(255,60,172,0.15),transparent,rgba(255,107,53,0.1));
+  z-index:-1;
+  animation:ringGlow 3s linear infinite;
+}
+@keyframes ringGlow{
+  0%{opacity:0.4;}50%{opacity:1;}100%{opacity:0.4;}
+}
 
 .chip-cloud{display:flex;flex-wrap:wrap;gap:0.4rem;}
 .chip{
@@ -564,53 +678,19 @@ footer{
   </div>
 
   <div class="hero-right">
-    <div class="glass hr-card">
-      <div class="hr-card-label">Skill Matrix</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-row"><span>Full Stack Dev</span><span class="skill-bar-pct">92%</span></div>
-        <div class="sb-track"><div class="sb-fill" style="width:92%;animation-delay:.4s"></div></div>
+    <div class="terminal-wrap glass">
+      <div class="terminal-bar">
+        <div class="t-dot red"></div>
+        <div class="t-dot yellow"></div>
+        <div class="t-dot green"></div>
+        <div class="terminal-filename">artha_agent.py</div>
       </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-row"><span>AI Agent Design</span><span class="skill-bar-pct">85%</span></div>
-        <div class="sb-track"><div class="sb-fill" style="width:85%;animation-delay:.6s"></div></div>
+      <div class="terminal-body" id="terminal-body"></div>
+      <div class="terminal-status">
+        <div class="ts-dot"></div>
+        <span class="ts-text">Agent Running</span>
+        <span class="ts-right">Python 3.11 · LangChain</span>
       </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-row"><span>UI/UX Design</span><span class="skill-bar-pct">80%</span></div>
-        <div class="sb-track"><div class="sb-fill" style="width:80%;animation-delay:.8s"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-row"><span>ML / Deep Learning</span><span class="skill-bar-pct">72%</span></div>
-        <div class="sb-track"><div class="sb-fill" style="width:72%;animation-delay:1s"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-row"><span>React Native</span><span class="skill-bar-pct">75%</span></div>
-        <div class="sb-track"><div class="sb-fill" style="width:75%;animation-delay:1.2s"></div></div>
-      </div>
-    </div>
-
-    <div class="glass hr-card">
-      <div class="hr-card-label">Active Stack</div>
-      <div class="chip-cloud">
-        <span class="chip on">LangChain</span>
-        <span class="chip on">FastAPI</span>
-        <span class="chip on">React</span>
-        <span class="chip on">Node.js</span>
-        <span class="chip on">MongoDB</span>
-        <span class="chip">TensorFlow</span>
-        <span class="chip on">Python</span>
-        <span class="chip">Neo4j</span>
-        <span class="chip">PyTorch</span>
-        <span class="chip">AWS</span>
-      </div>
-    </div>
-
-    <div class="glass hr-card">
-      <div class="hr-card-label">Current Mission</div>
-      <div class="status-row">
-        <div class="s-dot"></div>
-        <span>Full Stack Engineer @ Epidise Healthcare</span>
-      </div>
-      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-f);margin-top:0.5rem;letter-spacing:0.04em;">Tele-dermatology platform · Dehradun, India</div>
     </div>
   </div>
 </section>
@@ -1014,6 +1094,145 @@ function animate(){
   requestAnimationFrame(animate);
 }
 animate();
+
+/* ── TYPING TERMINAL ── */
+(function(){
+  const body = document.getElementById('terminal-body');
+  if(!body) return;
+
+  // Syntax-highlighted lines as arrays of [class, text] spans
+  const LINES = [
+    [[`s-comment`,`# Artha — Multi-Agent Financial System`]],
+    [],
+    [[`s-keyword`,`from `],[`s-plain`,`langchain.agents `],[`s-keyword`,`import `],[`s-plain`,`AgentExecutor`]],
+    [[`s-keyword`,`from `],[`s-plain`,`tools `],[`s-keyword`,`import `],[`s-plain`,`(StockPriceTool,`]],
+    [[`s-plain`,`    NewsTool, ForecastTool, AnalysisTool)`]],
+    [],
+    [[`s-comment`,`# Define the reasoning agent`]],
+    [[`s-keyword`,`def `],[`s-fn`,`build_agent`],[`s-punc`,`():`]],
+    [[`s-plain`,`    tools `],[`s-punc`,`= [`],[`s-type`,`StockPriceTool`],[`s-punc`,`(),`]],
+    [[`s-plain`,`             `],[`s-type`,`NewsTool`],[`s-punc`,`(),`]],
+    [[`s-plain`,`             `],[`s-type`,`ForecastTool`],[`s-punc`,`(),`]],
+    [[`s-plain`,`             `],[`s-type`,`AnalysisTool`],[`s-punc`,`()]`]],
+    [],
+    [[`s-plain`,`    agent `],[`s-punc`,`= `],[`s-fn`,`AgentExecutor`],[`s-punc`,`.`],[`s-fn`,`from_llm`],[`s-punc`,`(`]],
+    [[`s-plain`,`        llm`],[`s-punc`,`=`],[`s-type`,`Gemma`],[`s-punc`,`(`],[`s-str`,`"gemma-7b"`],[`s-punc`,`),`]],
+    [[`s-plain`,`        tools`],[`s-punc`,`=`],[`s-plain`,`tools,`]],
+    [[`s-plain`,`        verbose`],[`s-punc`,`=`],[`s-keyword`,`True`]],
+    [[`s-plain`,`    `],[`s-punc`,`)`]],
+    [[`s-keyword`,`    return `],[`s-plain`,`agent`]],
+    [],
+    [[`s-comment`,`# Stream response to FastAPI endpoint`]],
+    [[`s-keyword`,`async def `],[`s-fn`,`query`],[`s-punc`,`(`],[`s-var`,`user_input`],[`s-punc`,`: `],[`s-type`,`str`],[`s-punc`,`):`]],
+    [[`s-plain`,`    agent `],[`s-punc`,`= `],[`s-fn`,`build_agent`],[`s-punc`,`()`]],
+    [[`s-keyword`,`    return await `],[`s-plain`,`agent`],[`s-punc`,`.`],[`s-fn`,`arun`],[`s-punc`,`(`],[`s-var`,`user_input`],[`s-punc`,`)`]],
+  ];
+
+  let lineIdx = 0;
+  let charIdx = 0;
+  let rendered = [];   // built DOM lines
+
+  function makeLineEl(lineNum, spans){
+    const row = document.createElement('div');
+    row.className = 't-line';
+    const ln = document.createElement('span');
+    ln.className = 't-ln';
+    ln.textContent = lineNum;
+    const code = document.createElement('span');
+    code.className = 't-code';
+    if(spans.length === 0){
+      code.innerHTML = '&nbsp;';
+    } else {
+      spans.forEach(([cls,txt])=>{
+        const s = document.createElement('span');
+        s.className = cls;
+        s.textContent = txt;
+        code.appendChild(s);
+      });
+    }
+    row.appendChild(ln);
+    row.appendChild(code);
+    return row;
+  }
+
+  // cursor element
+  const cursorEl = document.createElement('span');
+  cursorEl.className = 't-cursor';
+
+  function getPlainText(spans){
+    return spans.map(s=>s[1]).join('');
+  }
+
+  function type(){
+    if(lineIdx >= LINES.length){
+      // done — keep cursor blinking at end
+      body.appendChild(cursorEl);
+      // restart after pause
+      setTimeout(()=>{
+        body.innerHTML='';
+        rendered=[];lineIdx=0;charIdx=0;
+        type();
+      }, 3200);
+      return;
+    }
+
+    const spans = LINES[lineIdx];
+    const fullText = getPlainText(spans);
+
+    if(charIdx === 0){
+      // start new line
+      const el = makeLineEl(lineIdx+1, []);
+      body.appendChild(el);
+      rendered.push(el);
+    }
+
+    const el = rendered[lineIdx];
+    const code = el.querySelector('.t-code');
+
+    // rebuild code content up to charIdx
+    code.innerHTML = '';
+    let chars = 0;
+    let done = false;
+    for(let i=0;i<spans.length;i++){
+      const [cls,txt] = spans[i];
+      if(done) break;
+      const remaining = charIdx - chars;
+      const s = document.createElement('span');
+      s.className = cls;
+      if(remaining >= txt.length){
+        s.textContent = txt;
+        code.appendChild(s);
+        chars += txt.length;
+      } else {
+        s.textContent = txt.slice(0,remaining);
+        code.appendChild(s);
+        done = true;
+      }
+    }
+    code.appendChild(cursorEl);
+
+    charIdx++;
+    if(charIdx > fullText.length){
+      // line complete
+      charIdx = 0;
+      lineIdx++;
+      // remove cursor from old line
+      if(cursorEl.parentNode) cursorEl.parentNode.removeChild(cursorEl);
+      body.scrollTop = body.scrollHeight;
+      const delay = spans.length === 0 ? 60 : 30;
+      setTimeout(type, delay);
+    } else {
+      body.scrollTop = body.scrollHeight;
+      // vary speed: slower on spaces, instant on some
+      const ch = fullText[charIdx-1];
+      const delay = ch === ' ' ? 28 : ch === '(' || ch === ')' ? 35 : 22;
+      setTimeout(type, delay);
+    }
+  }
+
+  // start after a small delay so hero loads first
+  setTimeout(type, 800);
+})();
 </script>
 </body>
 </html>
