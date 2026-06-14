@@ -500,35 +500,50 @@ section{padding:7rem 3.5rem;position:relative;z-index:3;}
 
 /* ── PROJECTS ── */
 .proj-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1.25rem;margin-top:4rem;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:4rem;
 }
 .proj-card{
-  padding:2.5rem;border-radius:20px;
+  padding:1.5rem;border-radius:16px;
   text-decoration:none;color:inherit;
   transition:transform .3s,box-shadow .3s;
   position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
 }
 .proj-card::after{
-  content:'↗';position:absolute;top:1.75rem;right:1.75rem;
-  font-size:1.1rem;color:var(--grad-a);
+  content:'↗';position:absolute;top:1.1rem;right:1.1rem;
+  font-size:1rem;color:var(--grad-a);
   opacity:0;transform:translate(4px,-4px);
   transition:opacity .25s,transform .25s;
 }
 .proj-card:hover{transform:translateY(-4px);box-shadow:0 24px 64px rgba(255,107,53,0.14);}
 .proj-card:hover::after{opacity:1;transform:translate(0,0);}
+.proj-screenshot{
+  width:100%;height:auto;object-fit:cover;object-position:top;
+  border-radius:10px;margin-bottom:1rem;
+  border:1px solid var(--glass-border);
+  display:block;
+}
+.proj-screenshot-placeholder{
+  width:100%;height:130px;border-radius:10px;margin-bottom:1rem;
+  border:1px solid var(--glass-border);
+  background:linear-gradient(135deg,rgba(255,107,53,0.07),rgba(120,75,160,0.07));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:0.56rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--text-f);
+}
 .proj-num{
-  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;
-  margin-bottom:1.25rem;display:block;
+  font-family:var(--mono);font-size:0.56rem;letter-spacing:0.2em;
+  margin-bottom:0.6rem;display:block;
   background:linear-gradient(90deg,var(--grad-b),var(--grad-c));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
 .proj-name{
-  font-family:var(--syne);font-size:1.35rem;font-weight:700;
-  letter-spacing:0.01em;margin-bottom:0.75rem;color:var(--text);
+  font-family:var(--syne);font-size:1.05rem;font-weight:700;
+  letter-spacing:0.01em;margin-bottom:0.45rem;color:var(--text);
   transition:color .2s;
 }
-.proj-desc{font-size:0.875rem;color:var(--text-m);line-height:1.75;font-weight:300;margin-bottom:1.5rem;}
+.proj-desc{font-size:0.8rem;color:var(--text-m);line-height:1.7;font-weight:300;margin-bottom:0.9rem;flex:1;}
 
 /* ── WRITING ── */
 .art-list{display:flex;flex-direction:column;border-top:1px solid var(--glass-border);margin-top:3.5rem;}
@@ -623,11 +638,11 @@ footer{
   section{padding:5rem 1.5rem;}
   .about-grid{grid-template-columns:1fr;gap:3rem;}
   .proj-grid{grid-template-columns:1fr;}
+  .exp-list{grid-template-columns:1fr;}
   .certs-grid{grid-template-columns:1fr;}
-  .cert-card[style*="grid-column"]{grid-column:span 1!important;}
+
   .contact-grid{grid-template-columns:1fr;gap:3rem;}
-  .exp-card{grid-template-columns:1fr;}
-  .exp-meta{border-right:none;border-bottom:1px solid var(--glass-border);}
+  .exp-card{}
   footer{flex-direction:column;gap:.5rem;text-align:center;}
 }
 </style>
@@ -658,12 +673,12 @@ footer{
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow"><div class="eyebrow-dot"></div>Full Stack Developer · AI Agent Architect</div>
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div>Backend Engineer · AI and AI Agents Engineer</div>
     <h1 class="hero-name">
       <span>Ishan</span><br/>
       <span class="fill">Rastogi</span>
     </h1>
-    <p class="hero-role">MERN · LangChain · FastAPI · TensorFlow</p>
+    <p class="hero-role">NodeJS, Python, FastAPI, TensorFlow, LangChain, LangGraph</p>
     <p class="hero-desc">I build end-to-end systems and intelligent agents — from polished interfaces to multi-agent AI pipelines. Shipping real products at Epidise Healthcare. Based in Dehradun, India.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-glow">View Projects</a>
@@ -823,41 +838,65 @@ footer{
     <p class="s-sub">Selected work — intelligent agents, real-time infrastructure, full-stack platforms.</p>
   </div>
   <div class="proj-grid">
-    <div class="glass proj-card reveal d1">
+    <a href="https://github.com/Ishan2608/Artha" target="_blank" rel="noopener" class="glass proj-card reveal d1">
+      <img class="proj-screenshot" src="./assets/projects_outputs/artha.PNG" alt="Artha — AI Financial Agent">
       <span class="proj-num">PROJECT — 001</span>
       <div class="proj-name">Artha — AI Financial Agent</div>
-      <p class="proj-desc">Multi-tool, multi-agent backend on LangChain enabling natural-language conversations about Indian stock markets. Agent dynamically invokes tools — live prices via YFinance, technical and fundamental analysis, news via NewsAPI and Tavily, document parsing, and price forecasting via Amazon Chronos. Powered by Gemma with a FastAPI backend.</p>
+      <p class="proj-desc">Multi-agent LangChain backend for natural-language stock market analysis. Dynamically invokes tools — live prices, technical analysis, news search, document parsing, and time-series forecasting via Amazon Chronos. FastAPI backend, Gemma engine.</p>
       <div class="exp-tags">
         <span class="etag">LangChain</span><span class="etag">FastAPI</span><span class="etag">Gemma</span>
-        <span class="etag">Amazon Chronos</span><span class="etag">YFinance</span>
+        <span class="etag">Amazon Chronos</span>
       </div>
-    </div>
-    <div class="glass proj-card reveal d2">
+    </a>
+    <a href="https://github.com/Ishan2608/Neural-Nets-from-NumPy" target="_blank" rel="noopener" class="glass proj-card reveal d2">
+      <img class="proj-screenshot" src="" alt="Neural Networks from NumPy">
       <span class="proj-num">PROJECT — 002</span>
+      <div class="proj-name">Neural Networks from NumPy</div>
+      <p class="proj-desc">A fully functional neural network built from scratch using only NumPy — no ML frameworks. Implements forward propagation, backpropagation, gradient descent, and weight optimization at the mathematical level. Built to understand what TensorFlow does under the hood.</p>
+      <div class="exp-tags">
+        <span class="etag">Python</span><span class="etag">NumPy</span>
+        <span class="etag">Deep Learning</span><span class="etag">Math</span>
+      </div>
+    </a>
+    <a href="https://github.com/Ishan2608/NextRoom" target="_blank" rel="noopener" class="glass proj-card reveal d3">
+      <img class="proj-screenshot" src="./assets/projects_outputs/NextRoom.PNG" alt="NextRoom — Video Calling">
+      <span class="proj-num">PROJECT — 003</span>
       <div class="proj-name">NextRoom — Video Calling</div>
-      <p class="proj-desc">Multi-user video calling and real-time chat application in core HTML, CSS, and JavaScript — no third-party SDK. Implemented WebRTC peer-to-peer communication and a Socket.IO signaling server entirely from scratch. Google Meet-style interface with full media controls and complete stream sovereignty.</p>
+      <p class="proj-desc">Multi-user video calling and real-time chat — no third-party SDK. WebRTC peer-to-peer and Socket.IO signaling server implemented entirely from scratch. Full media controls, room management, and bidirectional chat on a pure Node.js backend.</p>
       <div class="exp-tags">
         <span class="etag">WebRTC</span><span class="etag">Socket.IO</span>
-        <span class="etag">Node.js</span><span class="etag">JavaScript</span>
+        <span class="etag">Node.js</span>
       </div>
-    </div>
-    <div class="glass proj-card reveal d3">
-      <span class="proj-num">PROJECT — 003</span>
-      <div class="proj-name">Epidise — Healthcare Website</div>
-      <p class="proj-desc">Public-facing website for Epidise Healthcare Private Limited, built entirely with HTML, CSS, and JavaScript without AI assistance. A deliberate showcase of manual frontend craftsmanship and pixel-level responsive design. Live at epidise.com, deployed on Vercel.</p>
-      <div class="exp-tags">
-        <span class="etag">HTML · CSS · JS</span><span class="etag">Responsive</span><span class="etag">Vercel</span>
-      </div>
-    </div>
-    <div class="glass proj-card reveal d4">
+    </a>
+    <a href="https://www.epidise.com" target="_blank" rel="noopener" class="glass proj-card reveal d1">
+      <img class="proj-screenshot" src="./assets/projects_outputs/epidise.PNG" alt="Epidise Healthcare Website">
       <span class="proj-num">PROJECT — 004</span>
-      <div class="proj-name">Rooms — Full-Stack Chat App</div>
-      <p class="proj-desc">Full-stack real-time chat for text, image, and file sharing in direct messages and group rooms. Enhanced security with blocking, unblocking, and unknown-sender message handling. Deep dive into real-time architecture, authentication flows, and complete MERN engineering.</p>
+      <div class="proj-name">Epidise — Healthcare Website</div>
+      <p class="proj-desc">Live business website for a DPIIT-certified telemedicine startup — built entirely in HTML, CSS, and JavaScript without AI assistance. Lighthouse performance score optimized to 90%. Deployed on Vercel.</p>
+      <div class="exp-tags">
+        <span class="etag">HTML · CSS · JS</span><span class="etag">Responsive</span><span class="etag">Live ↗</span>
+      </div>
+    </a>
+    <a href="https://github.com/Ishan2608/Google-Maps-Scrapper" target="_blank" rel="noopener" class="glass proj-card reveal d2">
+      <img class="proj-screenshot" src="./assets/projects_outputs/google-maps-scrapper.PNG" alt="Google Maps Data Scraper">
+      <span class="proj-num">PROJECT — 005</span>
+      <div class="proj-name">Google Maps Data Scraper</div>
+      <p class="proj-desc">Python automation tool that extracts business entity data from Google Maps by location and search term, exporting structured CSV files. Built-in crash recovery — interrupted runs resume from last checkpoint. Used for lead generation and market research.</p>
+      <div class="exp-tags">
+        <span class="etag">Python</span><span class="etag">Automation</span>
+        <span class="etag">Web Scraping</span>
+      </div>
+    </a>
+    <a href="https://github.com/Ishan2608/Rooms" target="_blank" rel="noopener" class="glass proj-card reveal d3">
+      <img class="proj-screenshot" src="./assets/projects_outputs/Rooms.gif" alt="Rooms — Full-Stack Chat">
+      <span class="proj-num">PROJECT — 006</span>
+      <div class="proj-name">Rooms — Full-Stack Chat</div>
+      <p class="proj-desc">Full-stack real-time messaging in the MERN stack — direct messages, group rooms, file sharing, contact blocking, and unknown-sender separation. Mirrors WhatsApp Web's core feature set with a clean Material UI interface.</p>
       <div class="exp-tags">
         <span class="etag">MERN</span><span class="etag">Socket.IO</span>
         <span class="etag">MongoDB</span><span class="etag">Real-time</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -907,29 +946,37 @@ footer{
       <div class="cert-issuer">Google</div>
       <div class="cert-name">AI Essentials</div>
     </div>
-    <div class="glass cert-card reveal d2">
-      <div class="cert-issuer">IBM</div>
-      <div class="cert-name">Deep Learning with TensorFlow and Keras</div>
+    <div class="glass cert-card reveal d1">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">100 Days of Code: The Complete Python Pro Bootcamp</div>
     </div>
     <div class="glass cert-card reveal d3">
-      <div class="cert-issuer">AWS</div>
-      <div class="cert-name">Cloud Practitioner</div>
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">Python for Machine Learning &amp; Data Science Masterclass</div>
     </div>
     <div class="glass cert-card reveal d1">
       <div class="cert-issuer">Udemy</div>
       <div class="cert-name">TensorFlow for Deep Learning Bootcamp</div>
     </div>
     <div class="glass cert-card reveal d2">
+      <div class="cert-issuer">IBM</div>
+      <div class="cert-name">Deep Learning with TensorFlow and Keras</div>
+    </div>
+    <div class="glass cert-card reveal d2">
       <div class="cert-issuer">Udemy</div>
       <div class="cert-name">NodeJS — Complete Guide (MVC, REST APIs, GraphQL, Deno)</div>
     </div>
+    <div class="glass cert-card reveal d2">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">Database and SQL Bootcamp</div>
+    </div>
     <div class="glass cert-card reveal d3">
       <div class="cert-issuer">Udemy</div>
-      <div class="cert-name">Python for Machine Learning & Data Science Masterclass</div>
+      <div class="cert-name">Web Development Bootcamp</div>
     </div>
-    <div class="glass cert-card reveal d1" style="grid-column:span 3;">
-      <div class="cert-issuer">Udemy</div>
-      <div class="cert-name">100 Days of Code: The Complete Python Pro Bootcamp</div>
+    <div class="glass cert-card reveal d3">
+      <div class="cert-issuer">AWS</div>
+      <div class="cert-name">Cloud Practitioner</div>
     </div>
   </div>
 </section>
